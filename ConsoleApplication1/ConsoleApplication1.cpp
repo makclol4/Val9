@@ -1,80 +1,78 @@
 ﻿#include <iostream>
 
-class stack1 {
+class stack1 {// Объявление класса stack1
 private:
-    struct Node {
+    struct Node {// Внутри класса создается структура Node, содержащая данные и указатель на следующий элемент
         int data;
         Node* next;
     };
 
-    Node* top;
+    Node* top;// Объявление переменной top - указатель на верхний элемент стека
 public:
-    stack1() {
-        top = nullptr;
+    stack1() {// Конструктор класса stack1
+        top = nullptr;// Устанавливает значение top в nullptr, т.е. инициализирует пустой стек
     }
 
-    void push(int value) {
+    void push(int value) {// Метод push класса stack1 для вноса значений
         Node* newNode = new Node;
-        newNode->data = value;
-        newNode->next = top;
-        top = newNode;
+        newNode->data = value;// Создает новый узел и присваивает ему значение value
+        newNode->next = top;// Устанавливает указатель next нового узла на текущий верхний элемент стека
+        top = newNode;// Устанавливает указатель top на новый узел, делая его новым верхним элементом стека
     }
 
-    int pop() {
-        if (top == nullptr) {
-            std::cout << "Стек пуст" << std::endl;
+    int pop() {// Метод pop класса stack1
+        if (top == nullptr) {// Проверяет, не является ли стек пустым (top == nullptr)
+            std::cout << "Стек пуст" << std::endl;// Если стек пуст, выводит сообщение "Стек пуст" и возвращает -1
             return -1;
         }
 
-        int value = top->data;
-        Node* temp = top;
-        top = top->next;
-        delete temp;
+        int value = top->data;// Иначе, сохраняет значение data верхнего элемента стека
+        Node* temp = top;// Сохраняет указатель top во временной переменной temp
+        top = top->next;// Устанавливает указатель top на следующий элемент стека
+        delete temp;// Освобождает память, выделенную для временной переменной temp
 
-        return value;
+        return value;// Возвращает сохраненное значение data
     }
 };
 
-class stack2 {
-private:
-    int* arr;
-    int size;
-    int count;
-    int topIndex;
-public:
-    stack2(int stackSize) {
+class stack2 {// Объявление класса stack2
+private:// Внутри класса объявлены переменные arr, size, count и topIndex
+    int* arr;// arr - указатель на массив, содержащий элементы стека
+    int size;// size - размер стека
+    int count;// count - количество элементов в стеке
+    int topIndex;// topIndex - индекс верхнего элемента стека в массиве arr
+
+public:// Конструктор класса stack2
+    stack2(int stackSize) {// Инициализирует переменные size и topIndex значениями аргумента stackSize и -1 соответственно
         size = stackSize;
-        arr = new int[size];
-        count = 0;
+        arr = new int[size];// Выделяет память для массива arr размера size
+        count = 0;// Устанавливает значение count равным 0
         topIndex = -1;
     }
 
-    void push(int value) {
-        if (count == size) {
+    void push(int value) {// Метод push класса stack2
+        if (count == size) {// Если количество элементов в стеке равно размеру стека, выводит сообщение "Стек переполнен" и завершает метод
             std::cout << "Стек переполнен" << std::endl;
             return;
         }
-
-        topIndex = (topIndex + 1) % size;
-        arr[topIndex] = value;
-        count++;
+        topIndex = (topIndex + 1) % size;// Иначе, увеличивает значение topIndex на 1 по модулю size, чтобы обеспечить циклическое добавление элементов
+        arr[topIndex] = value;// Присваивает элементу с индексом topIndex значение value
+        count++;// Увеличивает количество элементов в стеке на 1
     }
 
-    int pop() {
-        if (count == 0) {
+    int pop() {// Метод pop класса stack2
+        if (count == 0) {// Если количество элементов в стеке равно 0, выводит сообщение "Стек пуст" и возвращает -1
             std::cout << "Стек пуст" << std::endl;
             return -1;
         }
-
-        int value = arr[topIndex];
-        topIndex = (topIndex - 1 + size) % size;
-        count--;
-
-        return value;
+        int value = arr[topIndex];// Иначе, сохраняет значение элемента с индексом topIndex
+        topIndex = (topIndex - 1 + size) % size;// Уменьшает значение topIndex на 1 по модулю size, чтобы обеспечить выборку элементов в порядке добавления
+        count--;// Уменьшает количество элементов в стеке на 1
+        return value;// Возвращает сохраненное значение элемента
     }
 
-    ~stack2() {
-        delete[] arr;
+    ~stack2() {// Деструктор класса stack2
+        delete[] arr;// Освобождает память, выделенную для массива arr
     }
 };
 
@@ -99,3 +97,15 @@ int main() {
 
     return 0;
 }
+// Функция main
+// Создает объект класса stack1 с именем s1
+// Вызывает метод push объекта s1 с аргументом 1, добавляя элемент в стек
+// Вызывает метод push объекта s1 с аргументом 2, добавляя элемент в стек
+// Вызывает метод push объекта s1 с аргументом 3, добавляя элемент в стек
+// Выводит на экран результат вызова метода pop объекта s1 (удаляет и возвращает верхний элемент)
+// Выводит на экран результат вызова метода pop объекта s1
+// Выводит на экран результат вызова метода pop объекта s1
+
+// Создает объект класса stack2 с аргументом 3, инициализирующим размер стека, с именем s2
+// Вызывает метод push объекта s2 с аргументом 1, добавляя элемент в стек
+// Вызывает метод push объекта s2 с
